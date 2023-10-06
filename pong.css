@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+    background-color: gray;
+}
+
+#board {
+    background-color: black;
+    border-top: 5px solid yellow;
+    border-bottom: 5px solid yellow;
+}
