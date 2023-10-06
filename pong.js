@@ -37,7 +37,7 @@ window.onload = function() {
     context.fillRect(player2.x, player2.y, player2.width, player2.height);
 
     document.addEventListener("keydown", movePlayer);
-
+    document.addEventListener("keyup", resetVelocity)
 
     requestAnimationFrame(update);
     
@@ -76,25 +76,40 @@ function update() {
 function movePlayer (e) {
     //player1
     if (e.code == "KeyW") {
-        console.log("player1 move up");
         player1.velocityY = -3;
     }
     else if (e.code == "KeyS") {
-        console.log("player1 move down");
         player1.velocityY = 3;
     }
 
 
     //player2
     if (e.code == "KeyI") {
-        console.log("player2 move up");
         player2.velocityY = -3;
     }
     else if (e.code == "KeyK") {
-        console.log("player2 move down");
         player2.velocityY = 3;
     }
 
+}
+
+function resetVelocity (e) {
+    if (e.code == "KeyW") {
+        
+        player1.velocityY = 0;
+    }
+    else if (e.code == "KeyS") {
+        
+        player1.velocityY = 0;
+    }
+
+    if (e.code == "KeyI") {
+        player2.velocityY = 0;
+    }
+    else if (e.code == "KeyK") {
+        player2.velocityY = 0;
+    }
+       
 }
 
 function outOfBounds (yPos) {
