@@ -53,7 +53,7 @@ function update() {
     //player1.y += player1.velocityY;
     let nextPlayer1Y = player1.y + player1.velocityY;
     // console.log(nextPlayer1Y);
-    if (!outOfBounds(player1.y)) {
+    if (!outOfBounds(nextPlayer1Y)) {
         player1.y = nextPlayer1Y;
     }
     else {
@@ -67,7 +67,7 @@ function update() {
     //player2.y += player2.velocityY;
 
     let nextPlayer2Y = player2.y + player2.velocityY;
-    if (!outOfBounds(player2.y)) {
+    if (!outOfBounds(nextPlayer2Y)) {
         player2.y = nextPlayer2Y;
     }
     context.fillRect(player2.x, player2.y, player2.width, player2.height);
