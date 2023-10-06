@@ -34,6 +34,9 @@ let ball = {
     velocityY : 2
 }
 
+let player1Score = 0;
+let player2Score = 0;
+
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -103,6 +106,22 @@ function update() {
             ball.velocityX *= -1;
         }
     }
+
+    //score
+    if (ball.x < 0) {
+        player2Score++;
+        ball.x = boardWidth / 2;
+        ball.y = boardHeight / 2;
+    }
+    if (ball.x + ballWidth > boardWidth) {
+        player1Score++;
+        ball.x = boardWidth / 2;
+        ball.y = boardHeight / 2;
+    }
+
+    context.font = "45px sans-serif"
+    context.fillText(player1Score , boardWidth/5 , 45)
+    context.fillText(player2Score , boardWidth*4/5 -45, 45)
 }
 
 function movePlayer (e) {
