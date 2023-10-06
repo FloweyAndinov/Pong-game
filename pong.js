@@ -51,7 +51,9 @@ window.onload = function() {
     context.fillRect(player2.x, player2.y, player2.width, player2.height);
 
     document.addEventListener("keydown", movePlayer);
-    document.addEventListener("keyup", resetVelocity)
+    document.addEventListener("keyup", resetVelocity);
+
+    
 
     requestAnimationFrame(update);
     
@@ -61,6 +63,10 @@ function update() {
     requestAnimationFrame(update); 
     context.clearRect(0,0,board.width,board.height);
 
+    for (let i = 10; i< board.height; i+=25) {
+        // i = starting y pos, draw a square every 25 pixels down
+        context.fillRect(board.width/2 - 10 , i , 5 , 5);
+    }
 
     //player1
     context.fillStyle = "skyblue";
