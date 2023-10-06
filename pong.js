@@ -23,6 +23,17 @@ let player2 = {
     velocityY : playerVelocityY
 }
 
+let ballWidth = 10;
+let ballHeight = 10;
+let ball = {
+    x : boardWidth / 2,
+    y : boardHeight / 2,
+    width : ballWidth,
+    height : ballHeight,
+    velocityX : 1,
+    velocityY : 2
+}
+
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -71,6 +82,27 @@ function update() {
         player2.y = nextPlayer2Y;
     }
     context.fillRect(player2.x, player2.y, player2.width, player2.height);
+
+    context.fillStyle = "white";
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
+    context.fillRect(ball.x, ball.y, ball.width, ball.height);
+
+    if (ball.y<0 || ball.y + ball.height >= boardHeight) {
+        ball.velocityY *=-1;
+    }
+
+    if (detectCollision(ball,player1)) {
+        if (ball.x <=player1.x + player1.width) {
+            ball.velocityX *= -1;
+        }
+    }
+
+    if (detectCollision(ball,player2)) {
+        if (ball.x + ballWidth >= player2.x) {
+            ball.velocityX *= -1;
+        }
+    }
 }
 
 function movePlayer (e) {
@@ -116,4 +148,11 @@ function outOfBounds (yPos) {
     
     return (yPos < 0 || yPos + playerHeight > boardHeight);
 
+}
+
+function detectCollision (a,b) {
+    return a.x < b.x + b.width && //a's top left corner doesn't reach b's top right corner
+    a.x + a.width > b.x && // a's top right corner passes b's top left corner
+    a.y < b.y + b.height && //a's top left corner doens't reach b's bottom left corner
+    a.y + a.height > b.y; // a's bottom left corner passes b's top left corner
 }
