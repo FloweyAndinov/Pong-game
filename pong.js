@@ -43,18 +43,8 @@ window.onload = function() {
     board.height = boardHeight
     board.width = boardWidth
     context = board.getContext("2d"); // used for drawing on the board
-
-    context.fillStyle = "skyblue";
-    context.fillRect(player1.x, player1.y, player1.width, player1.height);
-
-    context.fillStyle = "skyblue";
-    context.fillRect(player2.x, player2.y, player2.width, player2.height);
-
     document.addEventListener("keydown", movePlayer);
     document.addEventListener("keyup", resetVelocity);
-
-    
-
     requestAnimationFrame(update);
     
 }
