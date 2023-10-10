@@ -88,7 +88,8 @@ function update() {
     context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
     if (ball.y<0 || ball.y + ball.height >= boardHeight) {
-        ball.velocityY *=-1;
+        ball.velocityY *=-1.05;
+        ball.velocityX *= 1.05;
     }
 
     if (detectCollision(ball,player1)) {
