@@ -52,7 +52,7 @@ window.onload = function() {
     context.fillStyle = "blue";
     context.fillRect(0, 0, boardOriginalWidth, boardOriginalHeight);
 
-    
+
     board.height = boardHeight
     board.width = boardWidth
     document.addEventListener("keydown", movePlayer);
@@ -102,6 +102,8 @@ function update() {
     ball.y += ball.velocityY;
     context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
+    player2.y = ball.y - (ball.height * 2);
+
     if (ball.y<0 || ball.y + ball.height >= boardHeight) {
         ball.velocityY *=-1.05;
         ball.velocityX *= 1.05;
@@ -110,17 +112,25 @@ function update() {
     if (detectCollision(ball,player1)) {
         if (ball.x <=player1.x + player1.width) {
             ball.velocityX *= -1;
+            setTimeout(function() {
+                changePlayerX(1)
+            },50);
+            
         }
     }
 
     if (detectCollision(ball,player2)) {
         if (ball.x + ballWidth >= player2.x) {
             ball.velocityX *= -1;
+            setTimeout(function() {
+                changePlayerX(2)
+            },50);
         }
     }
 
     //score
     if (ball.x < 0) {
+        resetPlayersX();
         player2Score++;
         ball.velocityY = 2;
         ball.velocityX = 1;
@@ -128,6 +138,8 @@ function update() {
         ball.y = boardHeight / 2;
     }
     if (ball.x + ballWidth > boardWidth) {
+        
+        resetPlayersX();
         player1Score++;
         ball.velocityY = 2;
         ball.velocityX = 1;
@@ -150,13 +162,13 @@ function movePlayer (e) {
     }
 
 
-    //player2
-    if (e.code == "KeyI") {
-        player2.velocityY = -3;
-    }
-    else if (e.code == "KeyK") {
-        player2.velocityY = 3;
-    }
+    // //player2
+    // if (e.code == "KeyI") {
+    //     player2.velocityY = -3;
+    // }
+    // else if (e.code == "KeyK") {
+    //     player2.velocityY = 3;
+    // }
 
 }
 
@@ -170,12 +182,12 @@ function resetVelocity (e) {
         player1.velocityY = 0;
     }
 
-    if (e.code == "KeyI") {
-        player2.velocityY = 0;
-    }
-    else if (e.code == "KeyK") {
-        player2.velocityY = 0;
-    }
+    // if (e.code == "KeyI") {
+    //     player2.velocityY = 0;
+    // }
+    // else if (e.code == "KeyK") {
+    //     player2.velocityY = 0;
+    // }
        
 }
 
@@ -190,4 +202,18 @@ function detectCollision (a,b) {
     a.x + a.width > b.x && // a's top right corner passes b's top left corner
     a.y < b.y + b.height && //a's top left corner doens't reach b's bottom left corner
     a.y + a.height > b.y; // a's bottom left corner passes b's top left corner
+}
+
+function changePlayerX (player) {
+    if (player===1) {
+        player1.x++;
+    }
+    else if (player===2) {
+        player2.x--;
+    }
+}
+
+function resetPlayersX () {
+    player1.x = 10;
+    player2.x = boardWidth - playerWidth - 10;
 }
