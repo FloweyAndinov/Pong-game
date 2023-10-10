@@ -4,6 +4,9 @@ let boardWidth = 500;
 let boardHeight = 500;
 let context;
 
+let boardOriginalWidth;
+let boardOriginalHeight;
+
 let playerWidth = 10;
 let playerHeight = 50;
 let playerVelocityY = 0;
@@ -40,9 +43,18 @@ let player2Score = 0;
 
 window.onload = function() {
     board = document.getElementById("board");
+    context = board.getContext("2d"); // used for drawing on the board
+
+    boardOriginalHeight = board.height;
+    boardOriginalWidth = board.width;
+
+    context.globalCompositeOperation = 'destination-over'
+    context.fillStyle = "blue";
+    context.fillRect(0, 0, boardOriginalWidth, boardOriginalHeight);
+
+    
     board.height = boardHeight
     board.width = boardWidth
-    context = board.getContext("2d"); // used for drawing on the board
     document.addEventListener("keydown", movePlayer);
     document.addEventListener("keyup", resetVelocity);
     requestAnimationFrame(update);
@@ -51,6 +63,9 @@ window.onload = function() {
 
 function update() {
     requestAnimationFrame(update); 
+
+    
+
     context.clearRect(0,0,board.width,board.height);
 
     for (let i = 10; i< board.height; i+=25) {
