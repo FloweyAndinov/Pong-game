@@ -107,11 +107,15 @@ function update() {
     //score
     if (ball.x < 0) {
         player2Score++;
+        ball.velocityY = 2;
+        ball.velocityX = 1;
         ball.x = boardWidth / 2;
         ball.y = boardHeight / 2;
     }
     if (ball.x + ballWidth > boardWidth) {
         player1Score++;
+        ball.velocityY = 2;
+        ball.velocityX = 1;
         ball.x = boardWidth / 2;
         ball.y = boardHeight / 2;
     }
